@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuke-Astroid Game", "Nuke-Astroid Game\Nuke-Astroid Game.csproj", "{0197FB39-026F-46A5-845C-A16EDEEEBC0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0197FB39-026F-46A5-845C-A16EDEEEBC0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0197FB39-026F-46A5-845C-A16EDEEEBC0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0197FB39-026F-46A5-845C-A16EDEEEBC0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0197FB39-026F-46A5-845C-A16EDEEEBC0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12CC192F-5422-489B-8FA7-03E4332CCE5C}
+	EndGlobalSection
+EndGlobal
