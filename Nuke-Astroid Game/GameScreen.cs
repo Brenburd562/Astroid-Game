@@ -12,16 +12,21 @@ namespace Nuke_Astroid_Game
 {
     public partial class GameScreen : UserControl
     {
+        //lists for asteroids and bullets
         List<Asteroids> Asters = new List<Asteroids>();
         List<PewPews> pewPelets = new List<PewPews>();
 
+        //pen and brush for shit and asteroids
         SolidBrush fillBrush = new SolidBrush(Color.White);
         Pen shipBrush = new Pen (Color.White);
 
+        //t/f for button controls
         Boolean leftArrowDown, rightArrowDown, upArrowDown, downArrowDown, spaceShootDown;
 
+        //ints for character/pellet count/ score
         int charX = 210, charY = 400, charSize = 20, score = 0, rounds = 6;
 
+        //rand num gen for random asteroid spawns
         Random randNum = new Random();
 
         public GameScreen()
@@ -34,7 +39,7 @@ namespace Nuke_Astroid_Game
             this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
         }
 
-        public void MakeAst()
+        public void MakeAst() //creates asteroids
         {
             int sizeAst = randNum.Next(10, 30);
             int xAst = randNum.Next(1, this.Width - sizeAst);
@@ -43,13 +48,13 @@ namespace Nuke_Astroid_Game
             Asters.Add(newAst);
         }
 
-        public void MakePew()
+        public void MakePew() //creates bullets
         {
                 PewPews newPews = new PewPews(charX + charSize / 8, charY - 10);
                 pewPelets.Add(newPews);
         }
 
-        private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) //registers button push for movement and shooting
         {
             switch (e.KeyCode)
             {
@@ -70,7 +75,7 @@ namespace Nuke_Astroid_Game
                     break;
             }
         }
-        private void GameScreen_KeyUp(object sender, KeyEventArgs e)
+        private void GameScreen_KeyUp(object sender, KeyEventArgs e) //registers button push for movement and shooting
         {
             switch (e.KeyCode)
             {
@@ -92,7 +97,7 @@ namespace Nuke_Astroid_Game
             }
         }
 
-        public void HitBoxCheck()
+        public void HitBoxCheck() //checks if an asteroid has been destroyed and removes it and the bullet and updates score and round count
         {
             foreach (PewPews p in pewPelets)
             {
@@ -115,15 +120,13 @@ namespace Nuke_Astroid_Game
             }
         }
 
-        private void GameTimer_Tick(object sender, EventArgs e)
+        private void GameTimer_Tick(object sender, EventArgs e) //game engine
         {
-            int count= Asters.Count;
-
             Rectangle shipRec = new Rectangle(charX, charY, charSize / 2, charSize);
 
             HitBoxCheck();
 
-            foreach (Asteroids a in Asters)
+            foreach (Asteroids a in Asters) //checks for end game if the ship and an asteroid hit
             {
                 Rectangle boxRec = new Rectangle(a.x, a.y, a.size, a.size);
 
@@ -134,21 +137,23 @@ namespace Nuke_Astroid_Game
                     gs.Controls.Remove(this);
 
                     endScreen es = new endScreen();
+                    gs.Controls.Add(es);
                     es.Focus();
+                    return;
                 }
             }
 
-            if (Asters[Asters.Count - 1].y > 60)
+            if (Asters[Asters.Count - 1].y > 60) //spawns asteroids 
             {
                 MakeAst();
             }
 
-            foreach (Asteroids a in Asters)
+            foreach (Asteroids a in Asters) // drops the asteroids
             {
                 a.Move();
             }
 
-            foreach (PewPews p in pewPelets)
+            foreach (PewPews p in pewPelets) //moves the pellets up
             {
                 p.Move();
             }
@@ -157,6 +162,7 @@ namespace Nuke_Astroid_Game
             {
                 Asters.RemoveAt(0);
             }
+
             if (pewPelets.Count > 0)
             {
                 if (pewPelets[0].y < 20)
@@ -178,7 +184,7 @@ namespace Nuke_Astroid_Game
             {
                 charY = charY + 5;
             }
-            if (upArrowDown == true && charY > 0)
+            if (upArrowDown == true && charY > 30)
             {
                 charY = charY - 5;
             }
