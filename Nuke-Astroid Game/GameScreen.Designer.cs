@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.scorePelletCount = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // GameTimer
@@ -38,11 +39,22 @@
             this.GameTimer.Interval = 20;
             this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
+            // scorePelletCount
+            // 
+            this.scorePelletCount.AutoSize = true;
+            this.scorePelletCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.scorePelletCount.Location = new System.Drawing.Point(267, 0);
+            this.scorePelletCount.Name = "scorePelletCount";
+            this.scorePelletCount.Size = new System.Drawing.Size(478, 48);
+            this.scorePelletCount.TabIndex = 0;
+            this.scorePelletCount.Text = "SCORE: 0 | PELLETS: 6";
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(216F, 216F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Controls.Add(this.scorePelletCount);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "GameScreen";
@@ -52,11 +64,13 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Timer GameTimer;
+        private System.Windows.Forms.Label scorePelletCount;
     }
 }

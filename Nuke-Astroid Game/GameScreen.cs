@@ -16,11 +16,11 @@ namespace Nuke_Astroid_Game
         List<PewPews> pewPelets = new List<PewPews>();
 
         SolidBrush fillBrush = new SolidBrush(Color.White);
-        Pen tempBrush = new Pen (Color.White);
+        Pen shipBrush = new Pen (Color.White);
 
         Boolean leftArrowDown, rightArrowDown, upArrowDown, downArrowDown, spaceShootDown;
 
-        int charX = 210, charY = 400, charSize = 20;
+        int charX = 210, charY = 400, charSize = 20, score = 0, rounds = 6;
 
         Random randNum = new Random();
 
@@ -39,15 +39,14 @@ namespace Nuke_Astroid_Game
             int sizeAst = randNum.Next(10, 30);
             int xAst = randNum.Next(1, this.Width - sizeAst);
 
-            //add box
-            Asteroids newAst = new Asteroids(xAst, 0, sizeAst);
+            Asteroids newAst = new Asteroids(xAst, 20, sizeAst);
             Asters.Add(newAst);
         }
 
         public void MakePew()
         {
-            PewPews newPews = new PewPews(charX + charSize / 8, charY - 10);
-            pewPelets.Add(newPews);
+                PewPews newPews = new PewPews(charX + charSize / 8, charY - 10);
+                pewPelets.Add(newPews);
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -93,16 +92,36 @@ namespace Nuke_Astroid_Game
             }
         }
 
+        public void HitBoxCheck()
+        {
+            foreach (PewPews p in pewPelets)
+            {
+                Rectangle pewRec = new Rectangle(p.x, p.y, p.size, p.size);
+
+                foreach (Asteroids a in Asters)
+                {
+                    Rectangle boxRec = new Rectangle(a.x, a.y, a.size, a.size);
+
+                    if (boxRec.IntersectsWith(pewRec))
+                    {
+                        pewPelets.Remove(p);
+                        Asters.Remove(a);
+                        rounds++;
+                        score++;
+                        return;
+                    }
+
+                }
+            }
+        }
+
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             int count= Asters.Count;
 
             Rectangle shipRec = new Rectangle(charX, charY, charSize / 2, charSize);
 
-            foreach (PewPews p in pewPelets)
-            {
-                Rectangle pewRec = new Rectangle(p.x, p.y, p.size, p.size);
-            }
+            HitBoxCheck();
 
             foreach (Asteroids a in Asters)
             {
@@ -112,14 +131,9 @@ namespace Nuke_Astroid_Game
                 {
                     GameTimer.Enabled = false;
                 }
-                if (boxRec.IntersectsWith(pewRec))
-                {
-                    GameTimer.Enabled = false;
-                }
-
             }
 
-            if (Asters[Asters.Count - 1].y > 35)
+            if (Asters[Asters.Count - 1].y > 60)
             {
                 MakeAst();
             }
@@ -140,9 +154,10 @@ namespace Nuke_Astroid_Game
             }
             if (pewPelets.Count > 0)
             {
-                if (pewPelets[0].y < 0)
+                if (pewPelets[0].y < 20)
                 {
                     pewPelets.RemoveAt(0);
+                    rounds++;
                 }
             }
 
@@ -164,6 +179,7 @@ namespace Nuke_Astroid_Game
             }
             if (spaceShootDown == true && pewPelets.Count < 6)
             {
+                rounds--;
                 MakePew();
             }
 
@@ -172,8 +188,9 @@ namespace Nuke_Astroid_Game
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(tempBrush, charX, charY, charSize / 2, charSize);
-            
+            scorePelletCount.Text = "SCORE: " + score + " | PELLETS: " + rounds;
+            e.Graphics.DrawRectangle(shipBrush, charX, charY, charSize / 2, charSize);
+            e.Graphics.FillRectangle(fillBrush, 0, 25, this.Width, 5);
             foreach (Asteroids a in Asters)
             {
                 e.Graphics.FillRectangle(fillBrush, a.x, a.y, a.size, a.size);
