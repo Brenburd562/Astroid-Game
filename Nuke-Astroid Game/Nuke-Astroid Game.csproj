@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Asteroids.cs" />
     <Compile Include="endScreen.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="endScreen.Designer.cs">
       <DependentUpon>endScreen.cs</DependentUpon>

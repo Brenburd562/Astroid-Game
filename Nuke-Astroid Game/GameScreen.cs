@@ -24,7 +24,8 @@ namespace Nuke_Astroid_Game
         Boolean leftArrowDown, rightArrowDown, upArrowDown, downArrowDown, spaceShootDown;
 
         //ints for character/pellet count/ score
-        int charX = 210, charY = 400, charSize = 20, score = 0, rounds = 6;
+        int charX = 210, charY = 400, charSize = 20, rounds = 6;
+        public static int score = 0;
 
         //rand num gen for random asteroid spawns
         Random randNum = new Random();
@@ -34,9 +35,10 @@ namespace Nuke_Astroid_Game
             InitializeComponent();
             MakeAst();
         }
-        private void GameScreen_Load(object sender, EventArgs e)
+        private void GameScreen_Load(object sender, EventArgs e) //centers screen
         {
             this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+            score = 0;
         }
 
         public void MakeAst() //creates asteroids
@@ -158,12 +160,12 @@ namespace Nuke_Astroid_Game
                 p.Move();
             }
 
-            if (Asters[0].y > this.Height)
+            if (Asters[0].y > this.Height) //removes asteroids that go off screen
             {
                 Asters.RemoveAt(0);
             }
 
-            if (pewPelets.Count > 0)
+            if (pewPelets.Count > 0) // removes off screen bullets
             {
                 if (pewPelets[0].y < 20)
                 {
@@ -172,7 +174,7 @@ namespace Nuke_Astroid_Game
                 }
             }
 
-            if (leftArrowDown == true && charX > 0)
+            if (leftArrowDown == true && charX > 0)//moves character and shoots
             {
                 charX = charX - 5;
             }
@@ -197,7 +199,7 @@ namespace Nuke_Astroid_Game
             Refresh();
         }
 
-        private void GameScreen_Paint(object sender, PaintEventArgs e)
+        private void GameScreen_Paint(object sender, PaintEventArgs e) //all the graphics
         {
             scorePelletCount.Text = "SCORE: " + score + " | PELLETS: " + rounds;
             e.Graphics.DrawRectangle(shipBrush, charX, charY, charSize / 2, charSize);
