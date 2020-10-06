@@ -130,6 +130,11 @@ namespace Nuke_Astroid_Game
                 if (boxRec.IntersectsWith(shipRec))
                 {
                     GameTimer.Enabled = false;
+                    Form gs = this.FindForm();
+                    gs.Controls.Remove(this);
+
+                    endScreen es = new endScreen();
+                    es.Focus();
                 }
             }
 
