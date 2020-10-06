@@ -29,6 +29,7 @@ namespace Nuke_Astroid_Game
 
             GameScreen gs = new GameScreen();
             mm.Controls.Add(gs);
+            gs.Focus();
         }
 
         private void endGame_Click(object sender, EventArgs e) //Quits to "desktop"

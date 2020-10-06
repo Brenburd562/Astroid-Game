@@ -43,6 +43,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(216F, 216F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(1000, 1000);
